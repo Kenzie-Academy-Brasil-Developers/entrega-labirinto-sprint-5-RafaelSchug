@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding: initial;
+    margin: initial;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: #35227c url('space.jpg');
+    background-size: cover;
+}
+
+.container {
+    border: 1px solid gray;
+    position: relative;
+    margin: auto;
+}
+
+.default {
+    width: 28px;
+    height: 28px;
+    position: absolute;
+}
+
+.block {
+    background: url('asteroids.png');
+    background-size: cover;
+    /* background: blue; */
+}
+
+.player {
+    background: orange;
+    z-index: 1;
+}
+
+.exit {
+    background: green;
+}
