@@ -18,8 +18,9 @@ const map = [
 
 
 const container = document.querySelector('.container');
-let boxElements;
 
+let boxElements;
+let duckElement;
 
 let boxSize;
 let player;
@@ -28,8 +29,9 @@ let spaceship;
 let playerPosition = [];
 let blockPositions = [];
 let endGamePosition = [];
-let availableSpaces = [];
-
+let availablePositions = [];
+let duckPosition = [];
+let isDuckCaptured = false;
 
 const setIdealBlockSize = ()=> {
      if(window.innerWidth > window.innerHeight){
@@ -38,9 +40,6 @@ const setIdealBlockSize = ()=> {
         boxSize = Math.floor(window.innerWidth / map[0].length);
      }
 }
-
-
-
 
 const createBlocks = () => {
     for(let row = 0; row < map.length; row++){
@@ -74,6 +73,8 @@ const createBlocks = () => {
                 player = document.querySelector('.player');
                 spaceship = document.querySelector('.spaceship');
                 playerPosition = [boxSize * block,  boxSize * row];
+                blockPositions.push([boxSize * -1, boxSize * row])
+                blockPositions.push([boxSize * block, boxSize * row])
 
             } else if (content.includes('F')){
     
@@ -85,7 +86,7 @@ const createBlocks = () => {
 
                 endGamePosition = [boxSize * block,  boxSize * row];
             } else {
-                availableSpaces.push([boxSize * block,  boxSize * row]);
+                availablePositions.push([boxSize * block,  boxSize * row]);
             }
         }
     }
@@ -105,10 +106,34 @@ const setBlockSize = () => {
     container.style.height = `${boxSize * map.length}px`;
 }
 
+
+const randomizeDuckLocation = () => {
+    let idealValue = boxSize * (map[0].length - 10);
+    let idealPositions = availablePositions.filter(e => e[0] >= idealValue);
+    let randomizedPosition = idealPositions[Math.floor(Math.random() * idealPositions.length)];
+    
+    const duck = document.createElement('div');
+    duck.classList.add('space_duck', 'default');
+
+
+    duck.style.left = randomizedPosition[0]+'px';
+    duck.style.top = randomizedPosition[1]+'px';
+    duck.style.width = boxSize + 'px';
+    duck.style.height = boxSize + 'px';
+
+    container.appendChild(duck);   
+
+    duckPosition = [randomizedPosition[0], randomizedPosition[1]];
+
+    duckElement = document.querySelector('.space_duck');
+}
+
+
 const startGame = () =>{
     setIdealBlockSize();
     createBlocks();
     setBlockSize();
+    randomizeDuckLocation();
 }
 
 
@@ -168,10 +193,18 @@ const movePlayer = (event)=>{
 
         move[keyPressed]();
         player.classList.add('boosting');
-        checkVictory()
+        checkDuckCapture();
+        checkVictory();
     }
 }
 
+const checkDuckCapture = () => {
+    if(playerPosition.join('') === duckPosition.join('')){
+        isDuckCaptured = true;
+        duckElement.classList.add('captured');
+        setTimeout(() => { duckElement.style.display = 'none' }, 500);
+    }
+}
 
 const checkVictory = () => {
     console.log(playerPosition, endGamePosition)
@@ -181,8 +214,10 @@ const checkVictory = () => {
 }
 
 
+
+
 document.addEventListener('keydown', movePlayer);
-document.addEventListener('keyup', ()=>{
+document.addEventListener('keyup', () => {
     player.classList.remove('boosting');
 })
 
