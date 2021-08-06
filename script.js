@@ -12,7 +12,7 @@ const map = [
     "WWWWW W W W W W W W W",
     "W     W W W   W W W W",
     "W WWWWWWW WWWWW W W W",
-    "W       W       W   W",
+    "W               W   W",
     "WWWWWWWWWWWWWWWWWWWWW",
 ];
 
@@ -23,9 +23,12 @@ let boxElements;
 
 let boxSize;
 let player;
+let spaceship;
 
 let playerPosition = [];
 let blockPositions = [];
+let endGamePosition = [];
+let availableSpaces = [];
 
 
 const setIdealBlockSize = ()=> {
@@ -36,7 +39,7 @@ const setIdealBlockSize = ()=> {
      }
 }
 
-setIdealBlockSize();
+
 
 
 const createBlocks = () => {
@@ -45,6 +48,7 @@ const createBlocks = () => {
     
             const content = map[row][block];
             const div = document.createElement('div');
+            const img = document.createElement('img');
     
             if(content.includes('W')){
                 
@@ -61,10 +65,14 @@ const createBlocks = () => {
                 div.classList.add('player', 'default');
                 div.style.left = boxSize * block + "px";
                 div.style.top = boxSize * row + "px";
+                img.classList.add('spaceship');
+                img.src = "spaceship.png";
                 
+                div.appendChild(img);
                 container.appendChild(div);
 
                 player = document.querySelector('.player');
+                spaceship = document.querySelector('.spaceship');
                 playerPosition = [boxSize * block,  boxSize * row];
 
             } else if (content.includes('F')){
@@ -74,6 +82,10 @@ const createBlocks = () => {
                 div.style.top = boxSize * row + "px";
                 
                 container.appendChild(div);
+
+                endGamePosition = [boxSize * block,  boxSize * row];
+            } else {
+                availableSpaces.push([boxSize * block,  boxSize * row]);
             }
         }
     }
@@ -94,6 +106,7 @@ const setBlockSize = () => {
 }
 
 const startGame = () =>{
+    setIdealBlockSize();
     createBlocks();
     setBlockSize();
 }
@@ -110,49 +123,68 @@ const movePlayer = (event)=>{
     if(keyPressed.includes('Arrow')){
         const move = {
             'ArrowLeft': ()=>{
-                nextPlayerMove = [player.offsetLeft - boxSize, playerPosition[1]];
+                nextPlayerMove = [playerPosition[0] - boxSize, playerPosition[1]];
                 isPathBlocked = blockPositions.find(e => e[0] === nextPlayerMove[0] && e[1] === nextPlayerMove[1]);
 
                 if(!isPathBlocked){
-                    player.style.left = player.offsetLeft - boxSize + 'px';
+                    player.style.left = playerPosition[0] - boxSize + 'px';
                     playerPosition = nextPlayerMove;
+                    player.style.transform = 'rotate(270deg)';
                 }
             },
             'ArrowUp': ()=>{
-                nextPlayerMove = [playerPosition[0], player.offsetTop - boxSize];
+                nextPlayerMove = [playerPosition[0], playerPosition[1] - boxSize];
                 isPathBlocked = blockPositions.find(e => e[0] === nextPlayerMove[0] && e[1] === nextPlayerMove[1]);
 
                 if(!isPathBlocked){
-                    player.style.top = player.offsetTop - boxSize + 'px';
+                    player.style.top = playerPosition[1] - boxSize + 'px';
                     playerPosition = nextPlayerMove;
+                    player.style.transform = 'rotate(0)';
                 }
             },
             'ArrowRight': ()=>{
-                nextPlayerMove = [player.offsetLeft + boxSize, playerPosition[1]];
+                nextPlayerMove = [playerPosition[0] + boxSize, playerPosition[1]];
                 isPathBlocked = blockPositions.find(e => e[0] === nextPlayerMove[0] && e[1] === nextPlayerMove[1]);
 
                 if(!isPathBlocked){
-                    player.style.left = player.offsetLeft + boxSize + 'px';
+                    player.style.left = playerPosition[0] + boxSize + 'px';
                     playerPosition = nextPlayerMove;
+                    player.style.transform = 'rotate(90deg)';
+
                 }
             },
             'ArrowDown': ()=>{
-                nextPlayerMove = [playerPosition[0], player.offsetTop + boxSize];
+                nextPlayerMove = [playerPosition[0], playerPosition[1] + boxSize];
                 isPathBlocked = blockPositions.find(e => e[0] === nextPlayerMove[0] && e[1] === nextPlayerMove[1]);
 
                 if(!isPathBlocked){
-                    player.style.top = player.offsetTop + boxSize + 'px';
+                    player.style.top = playerPosition[1] + boxSize + 'px';
                     playerPosition = nextPlayerMove;
+                    player.style.transform = 'rotate(180deg)';
                 }
                 
             }
         }
 
         move[keyPressed]();
+        player.classList.add('boosting');
+        checkVictory()
     }
 }
 
+
+const checkVictory = () => {
+    console.log(playerPosition, endGamePosition)
+    if(playerPosition.join('') === endGamePosition.join('')){
+        console.log("Congrats!")
+    }
+}
+
+
 document.addEventListener('keydown', movePlayer);
+document.addEventListener('keyup', ()=>{
+    player.classList.remove('boosting');
+})
 
 
 startGame();
