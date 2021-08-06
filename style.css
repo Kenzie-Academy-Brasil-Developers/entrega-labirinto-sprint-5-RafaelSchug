@@ -20,39 +20,50 @@ body {
     margin: auto;
 }
 
+@keyframes container_disappear {
+    40% {
+        transform: scale(3);
+    }
+    80% {
+        transform: scale(0);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.container.disappear{
+    animation: container_disappear 1s 1 linear;
+}
+
 .default {
     position: absolute;
 }
 
-@keyframes duck_animation {
+
+.space_duck {
+    margin-top: 4px;
+    cursor: crosshair;
+    z-index: 2;
+    transition: all .2s linear;
+}
+
+@keyframes duckImg_animation {
     from {
         transform: scale(1.6) rotate(360deg);
     }
 }
 
-
-.space_duck {
-    background: url('spaceDuck.png');
-    background-size: cover;
-    background-position: center;
-    margin-top: 4px;
+.space_duck img {
+    height: 100%;
     transform: scale(1.6);
-    animation: duck_animation 30s infinite linear;
-    filter: saturate(1.5);
-    cursor: crosshair;
-    z-index: 2;
-}
-
-@keyframes duck_zoom {
-    from {
-        transform: scale(10.6) rotate(360deg);
-    }
+    filter: saturate(3);
+    image-rendering: optimizeQuality;
+    animation: duckImg_animation 25s infinite linear;
 }
 
 .space_duck:hover {
-
-    animation: duck_zoom 20s infinite linear;
-    transform: scale(5);
+    transform: scale(3);
     z-index: 4;
 
 }
@@ -61,18 +72,17 @@ body {
     from {
         display: initial;
         opacity: 1;
-        transform: scale(2.8);
+        transform: scale(2.2);
     } to {
         opacity: 0;
-        transform: scale(0.5);
+        transform: scale(0.5) rotate(360deg);
     }
     
 }
 
 .space_duck.captured {
     transition: all .1s linear;
-    animation: capturing_duck .5s 1 ease-in-out;
-
+    animation: capturing_duck 1s 1 ease-in-out;
 }
 
 /* @keyframes block_animation {
@@ -109,6 +119,7 @@ body {
 
 .player.boosting {
     filter: drop-shadow(0px 76px 11px #AEC100);
+    pointer-events: none;
 }
 
 .player {
@@ -122,7 +133,24 @@ body {
 }
 
 .player:hover {
-    transform: scale(5);;
+    transform: scale(3)!important;
+}
+
+
+@keyframes player_disappear {
+    40% {
+        transform: rotate(90deg) scale(3);
+    }
+    80% {
+        transform: rotate(90deg) scale(0);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.player.disappear {
+    animation: player_disappear .5s 1 linear;
 }
 
 .spaceship {
@@ -142,7 +170,6 @@ body {
 .exit {
     background: linear-gradient(45deg, #302b5a, #1c3cb3a8);
     border-radius: 50%;
-    /* border: 4px double #7b7b7b; */
     transform: scale(1.3);
     box-shadow: 0 0 14px 13px #000000cf, inset 0 0 10px 2px black;
 

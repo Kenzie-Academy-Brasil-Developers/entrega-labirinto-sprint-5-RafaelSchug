@@ -33,7 +33,7 @@ let availablePositions = [];
 let duckPosition = [];
 let isDuckCaptured = false;
 
-const setIdealBlockSize = ()=> {
+const setIdealBlockSize = () => {
      if(window.innerWidth > window.innerHeight){
         boxSize = Math.floor(window.innerHeight / map[0].length);
      } else {
@@ -108,20 +108,25 @@ const setBlockSize = () => {
 
 
 const randomizeDuckLocation = () => {
-    let idealValue = boxSize * (map[0].length - 10);
-    let idealPositions = availablePositions.filter(e => e[0] >= idealValue);
-    let randomizedPosition = idealPositions[Math.floor(Math.random() * idealPositions.length)];
+
+    const idealValue = boxSize * (map[0].length - 10);
+    const idealPositions = availablePositions.filter(e => e[0] >= idealValue);
+    const randomizedPosition = idealPositions[Math.floor(Math.random() * idealPositions.length)];
     
-    const duck = document.createElement('div');
-    duck.classList.add('space_duck', 'default');
+    const duckDiv = document.createElement('div');
+    const img = document.createElement('img');
 
+    img.classList.add('space_duck_img');
+    img.src = "spaceDuck.png";
 
-    duck.style.left = randomizedPosition[0]+'px';
-    duck.style.top = randomizedPosition[1]+'px';
-    duck.style.width = boxSize + 'px';
-    duck.style.height = boxSize + 'px';
+    duckDiv.classList.add('space_duck', 'default');
+    duckDiv.style.left = randomizedPosition[0]+'px';
+    duckDiv.style.top = randomizedPosition[1]+'px';
+    duckDiv.style.width = boxSize + 'px';
+    duckDiv.style.height = boxSize + 'px';
 
-    container.appendChild(duck);   
+    duckDiv.appendChild(img);
+    container.appendChild(duckDiv);   
 
     duckPosition = [randomizedPosition[0], randomizedPosition[1]];
 
@@ -129,16 +134,17 @@ const randomizeDuckLocation = () => {
 }
 
 
-const startGame = () =>{
+const startGame = () => {
     setIdealBlockSize();
     createBlocks();
     setBlockSize();
     randomizeDuckLocation();
+    addEventListeners();
 }
 
 
 
-const movePlayer = (event)=>{
+const movePlayer = (event) => {
 
     const keyPressed = event.key;
     
@@ -202,24 +208,36 @@ const checkDuckCapture = () => {
     if(playerPosition.join('') === duckPosition.join('')){
         isDuckCaptured = true;
         duckElement.classList.add('captured');
-        setTimeout(() => { duckElement.style.display = 'none' }, 500);
+        setTimeout(() => { duckElement.style.display = 'none' }, 1000);
     }
 }
 
 const checkVictory = () => {
     console.log(playerPosition, endGamePosition)
     if(playerPosition.join('') === endGamePosition.join('')){
-        console.log("Congrats!")
+        console.log("Congrats!");
+
+        player.classList.add('disappear');
+        setTimeout(() => {
+            player.style.display = 'none';
+            container.classList.add('disappear');
+        }, 500);
+
+        setTimeout(() => {
+            container.style.display = 'none';
+        }, 1500)
     }
 }
 
 
+const addEventListeners = () => {
+    document.addEventListener('keydown', movePlayer);
+    document.addEventListener('keyup', () => {
+        player.classList.remove('boosting');
+    })
+}
 
 
-document.addEventListener('keydown', movePlayer);
-document.addEventListener('keyup', () => {
-    player.classList.remove('boosting');
-})
 
 
 startGame();
