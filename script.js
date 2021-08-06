@@ -18,6 +18,8 @@ const map = [
 
 
 const container = document.querySelector('.container');
+const fuelContainer = document.querySelector('.fuel_container');
+const fuelStatusElem = document.querySelector('#fuel_status');
 
 let boxElements;
 let duckElement;
@@ -32,6 +34,12 @@ let endGamePosition = [];
 let availablePositions = [];
 let duckPosition = [];
 let isDuckCaptured = false;
+let fuelLeft = 150;
+
+let warpSound = new Audio('warp.wav');
+let outtaFuelSound = new Audio('outtafuel.wav');
+let collectSound = new Audio('collect.wav');
+let bgSong = new Audio('bg_song.mp3');
 
 const setIdealBlockSize = () => {
      if(window.innerWidth > window.innerHeight){
@@ -139,7 +147,12 @@ const startGame = () => {
     createBlocks();
     setBlockSize();
     randomizeDuckLocation();
-    addEventListeners();
+    setEventListeners();
+
+    if(bgSong.currentTime === 0){
+        bgSong.play();
+        bgSong.loop = true;
+    }
 }
 
 
@@ -197,27 +210,50 @@ const movePlayer = (event) => {
             }
         }
 
+        
+        if(fuelLeft < 1) {
+            outtaFuelSound.play();
+            player.classList.remove('boosting');
+            return;
+        }
+
+        
+
         move[keyPressed]();
         player.classList.add('boosting');
         checkDuckCapture();
         checkVictory();
+        updateFuel();
     }
+}
+
+
+const updateFuel = () => {
+    fuelLeft-=1;
+    fuelStatusElem.value = fuelLeft;
 }
 
 const checkDuckCapture = () => {
     if(playerPosition.join('') === duckPosition.join('')){
         isDuckCaptured = true;
         duckElement.classList.add('captured');
+        collectSound.play();
+        duckPosition = [];
         setTimeout(() => { duckElement.style.display = 'none' }, 1000);
     }
 }
 
 const checkVictory = () => {
-    console.log(playerPosition, endGamePosition)
+
     if(playerPosition.join('') === endGamePosition.join('')){
-        console.log("Congrats!");
+        
+        warpSound.currentTime = 0.1;
+        warpSound.volume = 0.3;
+        warpSound.play();
 
         player.classList.add('disappear');
+        fuelContainer.style.opacity = 0;
+
         setTimeout(() => {
             player.style.display = 'none';
             container.classList.add('disappear');
@@ -225,19 +261,17 @@ const checkVictory = () => {
 
         setTimeout(() => {
             container.style.display = 'none';
+            
         }, 1500)
     }
 }
 
 
-const addEventListeners = () => {
+const setEventListeners = () => {
     document.addEventListener('keydown', movePlayer);
     document.addEventListener('keyup', () => {
         player.classList.remove('boosting');
     })
 }
-
-
-
 
 startGame();

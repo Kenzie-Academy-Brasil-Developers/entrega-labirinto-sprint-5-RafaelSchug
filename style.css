@@ -13,6 +13,52 @@ body {
     background: #35227c url('space.jpg');
     background-size: cover;
     overflow: hidden;
+    flex-direction: column;
+    min-width: 320px;
+}
+
+.fuel_container {
+    transition: all .5s linear;
+    position: relative;
+    background: #2b2b2b;
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 300px;
+    width: 100%;
+    max-width: 500px;;
+}
+
+.fuel_container::after {
+    content: "Combustível";
+    position: absolute;
+    background: #2b2b2b;
+    width: 140px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-family: sans-serif;
+    font-variant: small-caps;
+    bottom: -30px;
+    left: calc(50% - 70px);
+    border-radius: 0 0 10px 10px;
+    color: #fff;
+}
+
+.fuel_container meter {
+    width: 100%;
+    height: 40px;
+}
+
+::-webkit-meter-bar {
+    border: 3px solid #2b2b2b;
+}
+
+::-webkit-meter-optimum-value {
+    background: linear-gradient(90deg, #ec0000, #ffff17, #03f703);
+    transition: all .3s linear;
 }
 
 .container {
@@ -85,19 +131,33 @@ body {
     animation: capturing_duck 1s 1 ease-in-out;
 }
 
-/* @keyframes block_animation {
+@keyframes block_animation {
     to {
         transform: scale(1.2) rotate(360deg);
     }
-} */
+}
+
 
 .block {
+    transform: scale(1.2);
+    /* filter: drop-shadow(1px 6px 15px black) grayscale(1); */
+}
+
+.block:nth-child(even){
     background: url('asteroids.png');
     background-size: cover;
-    transform: scale(1.2);
-    filter: drop-shadow(1px 6px 15px black) grayscale(1);
-    /* animation: block_animation 120s infinite linear; */
+    animation: block_animation 60s infinite linear;
 }
+
+.block:nth-child(odd){
+    
+    background: url('asteroids2.png');
+    background-size: cover;
+    animation: block_animation 20s infinite linear;
+    /* filter: hue-rotate(150deg); */
+}
+
+
 
 @keyframes spaceship_animation {
     20% {
