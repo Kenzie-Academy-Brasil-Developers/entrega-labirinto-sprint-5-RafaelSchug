@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'm_moderno';
+    src: url('assets/fonts/MuseoModerno.ttf');
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -72,8 +77,25 @@ body {
     font-size: 38px;
     font-family: monospace;
     color: white;
-    text-shadow: 0 0 20px black;
+    text-shadow: 0 0 20px #000, 0 0 17px #000;
+    font-family: 'm_moderno';
+    font-weight: 400;
 }
+
+
+@keyframes newMsgAnim {
+    0% {
+        transform: scale(0.2);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+}
+
 .newMsg {
     display: none;
     /* display: flex; */
@@ -82,24 +104,28 @@ body {
     row-gap: 10px;
     opacity: 0;
     transition: all .5s ease-in-out;
+    animation: newMsgAnim .5s 1 ease-in-out;
 }
 
 .msg_received {
     transition: all 1s ease-in-out;
     cursor: pointer;
-    transition: all .3s linear;
+    transition: all .2s linear;
+    border: 2px dotted #9e9e9e;
 }
 
 .msg_received:hover {
     transform: scale(1.1);
+    border: 2px dotted #fff;
 }
 
 .default_button {
     width: 200px;
     height: 50px;
-    background: #069806;
+    background: linear-gradient(180deg, #8af653, #196600);
     font-weight: bold;
-    color: white;
+    color: #fff;
+    text-shadow: 0 0 2px #2a2a2a;
     text-transform: uppercase;
     border: 1px solid #464646;
     box-shadow: inset 0 0 5px 1px #0c0c0c, 0 0 3px 2px #191919;
@@ -110,7 +136,7 @@ body {
 }
 
 .default_button:hover {
-    background: #008400;
+    background: linear-gradient(180deg, #41c100, #144d02);
 }
 
 .default_button:active {
@@ -150,9 +176,34 @@ body {
     align-items: center;
     z-index: 4;
     display: none;
+    transition: all .5s ease-out;
+}
+
+@keyframes infoScreenAfterAnim {
+    from {
+        opacity: 0;
+    }
+}
+
+.info_screen__container::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #000000c7;
+    z-index: -1;
+    animation: infoScreenAfterAnim .5s 1 ease-in-out;
+}
+
+@keyframes msg_broadcast_anim {
+    0% {
+        opacity: 0;
+        margin-top: -60px;
+    }
 }
 
 .info_msg_broadcast {
+
     max-width: 500px;
     padding: 20px;
     display: flex;
@@ -167,6 +218,9 @@ body {
     border-radius: 10px;
     border: 4px double white;
     display: none;
+    transition: all .5s ease;
+
+    animation: msg_broadcast_anim .5s 1 ease-in-out;
 }
 
 .info_msg_broadcast p {
@@ -345,16 +399,23 @@ body {
 }
 
 .space_duck::before {
-    content: "Identificação: Desconhecida\A Tipo: Emborrachado\A País de Origem: Brasil\A Ocupação: Debugger\A Traje de Proteção: Ausente\A Capacete: F331-KZ";
+    content: "Identificação: Desconhecida\A Tipo: Emborrachado\A Ocupação: Debugger\A Traje de Proteção: Ausente\A Capacete: F331-KZ";
     position: absolute;
-    left: -110px;
-    top: -35px;
-    background: #000000a6;
+
+
+    /* left: -80px;
+    top: -25px; */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+
+    background: #000000d6;
+    
     pointer-events: none;
     color: white;
     white-space: pre;
     word-wrap: break-word;
-    font-size: 5px;
+    font-size: 0.3rem;
     padding: 5px;
     border-radius: 10px;
     font-family: monospace;
@@ -363,6 +424,8 @@ body {
     border-width: 3px;
     border-style: double;
     border-color: #dee1ea transparent transparent transparent;
+
+    z-index: 1;
 }
 
 .space_duck:hover::before {
@@ -386,7 +449,7 @@ body {
     height: 100%;
     transform: scale(1.6);
     filter: saturate(3);
-    image-rendering: pixelated;
+    /* image-rendering: pixelated; */
     animation: duckImg_animation 25s infinite linear;
 }
 
@@ -466,16 +529,22 @@ body {
 }
 
 .player::before {
-    content: "Modelo: F378.22-FTL-KA\A Propulsor: Orientação Vertical\A Tipo: Econômico \A Ano de Fabricação: 2286\A País: Brasil\A Agência: Kenzie Space Agency";
+    content: "Modelo: F378.22-FTL-KA\A Propulsor: Orientação Vertical\A Tipo: Econômico \A Ano de Fabricação: 2286\A Agência: Kenzie Space Agency";
     position: absolute;
-    left: 48px;
-    top: -70px;
-    background: #000000a6;
+
+
+    /* left: 48px;
+    top: -70px; */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+
+    background: #000000d6;
     pointer-events: none;
     color: white;
     white-space: pre;
     word-wrap: break-word;
-    font-size: 5px;
+    font-size: 0.3rem;
     padding: 5px;
     border-radius: 10px;
     font-family: monospace;
@@ -484,6 +553,8 @@ body {
     border-width: 3px;
     border-style: double;
     border-color: #dee1ea transparent transparent transparent;
+
+    z-index: 1;
 }
 
 .player {
@@ -527,7 +598,7 @@ body {
     height: 100%;
     filter: saturate(1.5);
     transform: scale(2.2);
-    image-rendering: pixelated;
+    /* image-rendering: pixelated; */
     animation: spaceship_animation 3s infinite cubic-bezier(0, 0, 0.7, 0.4);
     margin-top: 30%;
 }
@@ -539,16 +610,25 @@ body {
 }
 
 .exit::before {
-    content: "Identificação: Wormhole FJUI-Y7\A Conexão Aproximada: ~Gliese 876\A Paralelismo Anti-Pato: Não\A Sucção Máxima: 2.1011640058884113e+139";
+    content: "Identificação: Wormhole FJUI-Y7\A Conexão Aproximada: ~Gliese 876\A Paralelismo Anti-Pato: Improvável\A Sucção Máxima: 2.1011640058884113e+139";
     position: absolute;
-    left: -140px;
-    top: -12px;
-    background: #000000a6;
+
+
+    /* left: -100px;
+    top: -18px; */
+
+    max-width: 200px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+
+    background: #000000d6;
+
     pointer-events: none;
     color: white;
     white-space: pre;
     word-wrap: break-word;
-    font-size: 5px;
+    font-size: 0.3rem;
     padding: 5px;
     border-radius: 10px;
     font-family: monospace;
@@ -557,19 +637,20 @@ body {
     border-width: 3px;
     border-style: double;
     border-color: #ff0000 transparent transparent transparent;
-    
+
+    z-index: 1;
 }
 
 .exit {
-    background: linear-gradient(45deg, #302b5a, #1c3cb3a8);
+    background: linear-gradient(45deg, #362f6f, #636464a8, #1c58b3a8, #1b3f3da8, #7f1cb3a8, #314383a8);
     border-radius: 50%;
     transform: scale(1.3);
-    box-shadow: 0 0 14px 13px #000000cf, inset 0 0 10px 2px black;
-
+    box-shadow: 0 0 14px 13px #000000cf, inset 0 0 10px 2px black, inset -2px -1px 20px 0px #181c1d;
     animation: exit_anim 5s infinite linear;
     z-index: 2;
     cursor: crosshair;
     transition: transform 1s linear;
+    /* border: 5px double #1d1d1d; */
 }
 
 .exit:hover::before {
@@ -577,6 +658,7 @@ body {
 }
 
 .exit:hover {
+    transition: none;
     transform: scale(3);
     animation: unset;
     z-index: 4;

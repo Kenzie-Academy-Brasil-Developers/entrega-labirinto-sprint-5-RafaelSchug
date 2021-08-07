@@ -146,7 +146,9 @@ const randomizeDuckLocation = () => {
 
     const idealValue = boxSize * (map[0].length - 10);
     const idealPositions = availablePositions.filter(e => e[0] >= idealValue);
-    const randomizedPosition = idealPositions[Math.floor(Math.random() * idealPositions.length)];
+    // const randomizedPosition = idealPositions[Math.floor(Math.random() * idealPositions.length)];
+    const randomizedPosition = availablePositions[Math.floor(Math.random() * idealPositions.length)];
+
     
     const duckDiv = document.createElement('div');
     const img = document.createElement('img');
@@ -431,15 +433,27 @@ const prepareToStartGame = () => {
 
 const modalControl = (event) => {
 
+    const parentTarg = event.currentTarget.parentElement;
     const action = event.currentTarget.dataset.check;
+
+
+    parentTarg.style.opacity = 0;
+    infoScreen.style.opacity = 1;
 
     clickSound.play();
 
-    infoMsgBroadcast.forEach(bcElement=>{
-        bcElement.style.display = 'none';
-    })
+    setTimeout(()=>{
+        infoMsgBroadcast.forEach(bcElement=>{
+            bcElement.style.display = 'none';
+            bcElement.style.opacity = 1;
+        })
+        infoScreen.style.opacity = 0;
+        
+    }, 500);
 
-    infoScreen.style.display = 'none';
+    setTimeout(()=>{
+        infoScreen.style.display = 'none';
+    }, 1000)
 
     if(action === 'restart'){
 
@@ -459,6 +473,7 @@ const modalControl = (event) => {
 const displayBroadcastMsg = (msgIndex) =>{
     infoScreen.style.display = 'flex';
     infoMsgBroadcast[msgIndex].style.display = 'flex';
+    infoScreen.style.opacity = 1;
 }
 
 showMsgBtn.addEventListener('click', ()=>{
