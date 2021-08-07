@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,13 +9,17 @@
     <title>Space Maze</title>
 </head>
 <body>
-    <div class="welcome_screen">
-        <h1>Olá, bem vindo ao Space Maze!</h1>
-        <p>Recemos um sinal de socorro vindo de um centurão de asteroids</p>
-        <p>Não temos muitas informações sobre a origem do problema, apenas sabemos que um dos tripulantes da nave é um pato, e que...</p>
-        <p>Um momento, vou verificar essas informações novamente, pois isso não parece estar correto...</p>
-        <p>Inesperadamente, essa informação está correta, e curiosamente, o pato se encontra fora da nave e precisa ser resgatado - <em>estou tão surpreso quanto você!</em></p>
-        <p>Será que você poderia nos ajudar nessa missão?</p>
+    <div class="welcome_screen__container">
+        <button id="startProcess">Iniciar</button>
+        <h1 id="welcome_msg">Bem vindo ao Space Maze!</h1>
+        <div class="newMsg">
+            <h4>Nova transmissão recebida</h4>
+            <button class="default_button" id="showTransmission">Exibir Transmissão</button>
+        </div>
+        <div class="message_receiver">
+            <p></p>
+        </div>
+        
     </div>
     <div class="fuel_container">
         <meter id="fuel_status" min="0" max="150" value="150"></meter>

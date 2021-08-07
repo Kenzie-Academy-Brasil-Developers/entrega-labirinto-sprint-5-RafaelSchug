@@ -274,4 +274,89 @@ const setEventListeners = () => {
     })
 }
 
-startGame();
+// startGame();
+
+
+
+
+// Mensagens de transmissão:
+
+const startProcess = document.querySelector('#startProcess');
+const welcomeMsg = document.querySelector('#welcome_msg');
+const newMsg = document.querySelector('.newMsg');
+const showMsgBtn = document.querySelector('#showTransmission');
+const MsgReceiver = document.querySelector('.message_receiver');
+
+showMsgBtn.addEventListener('click', ()=>{
+
+})
+
+startProcess.addEventListener('click', ()=>{
+    startProcess.style.opacity = 0;
+    bgSong.play();
+
+    setTimeout(()=>{
+        startProcess.style.display = 'none';
+        welcomeMsg.style.display = 'initial';
+    }, 1200);
+
+    setTimeout(()=>{
+        startWelcomeTransmission();
+    }, 2200);
+
+    
+});
+
+const startWelcomeTransmission = () => {
+    
+    setTimeout(()=>{
+        welcomeMsg.style.display = 'none';
+    }, 5000);
+
+    setTimeout(()=>{
+        newMsg.style.opacity = '1';
+    }, 5200);
+
+    setTimeout(()=>{
+        showMsgBtn.style.opacity = '1';
+        showMsgBtn.style.pointerEvents = "initial";
+    }, 5600);
+    
+}
+
+const startInitialMsgTransmission = () => {
+    let messages = [
+        "Recemos um sinal de socorro vindo de um centurão de asteroids.",
+        " Não temos muitas informações sobre a origem do problema, apenas sabemos que um dos tripulantes da nave é um pato, e que...",
+        " Espera, um pato?",
+        " Isso não me parece estar correto.",
+        " Um momento enquanto verifico a veracidade dessas informações...",
+        " Holy duck! As informações estão corretas, e o pato se localiza fora da nave e precisa ser resgatado!",
+        " Um pato...no espaço...",
+        " É, não é todo dia que recebemos um sinal de socorro desse porte.",
+        " Você poderia nos ajudar nessa missão?",
+    ]
+
+    let messageTimer = 1000;
+    let letterTimer = 100;
+    
+    messages.forEach(message=>{
+        setTimeout(()=>{
+           
+            message = message.split('');
+
+            for(let letter = 0; letter < message.length; letter++){
+                setTimeout(()=>{
+                    MsgReceiver.children[0].innerHTML += message[letter];
+                },letterTimer);
+                letterTimer+=40;
+
+            }
+            
+        }, messageTimer);
+        messageTimer+=1500;
+    })
+
+}
+
+startInitialMsgTransmission();
