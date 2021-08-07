@@ -13,13 +13,32 @@
         <button id="startProcess">Iniciar</button>
         <h1 id="welcome_msg">Bem vindo ao Space Maze!</h1>
         <div class="newMsg">
-            <h4>Nova transmissão recebida</h4>
-            <button class="default_button" id="showTransmission">Exibir Transmissão</button>
+            <h4 id="showTransmission" class="msg_received">Nova transmissão recebida</h4>
         </div>
-        <div class="message_receiver">
-            <p></p>
+        <div class="receiver__container">
+            <div class="message_receiver" id="broadcastMsg">
+                <p></p>
+                <span id="skip_transmission">Pular transmissão</span>
+            </div>
+            <button class="default_button" id="acceptMission">Aceitar Missão</button>
         </div>
-        
+    </div>
+    <div class="info_screen__container">
+        <div class="newMsg">
+            <h4 id="info_msg" class="msg_received">Nova transmissão recebida</h4>
+        </div>
+        <div class="info_msg_broadcast">
+            <p>Houve um problema sério aqui</p>
+            <span>Entendido</span>
+        </div>
+        <div class="info_msg_broadcast">
+            <p>Parabéns, você conseguiu sair do centurão de asteróides</p>
+            <span>Reiniciar</span>
+        </div>
+        <div class="info_msg_broadcast">
+            <p>Parabens, mas poderia ter salvo o pato, né?</p>
+            <span>Reiniciar</span>
+        </div>
     </div>
     <div class="fuel_container">
         <meter id="fuel_status" min="0" max="150" value="150"></meter>
