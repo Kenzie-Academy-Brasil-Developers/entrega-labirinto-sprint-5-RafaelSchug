@@ -352,7 +352,7 @@ const startInitialMsgTransmission = () => {
     receiverContainer.style.display = 'flex';
 
     let messages = [
-        "Recebemos um sinal de socorro vindo de um centurão de asteroids.",
+        "Recebemos um sinal de socorro vindo de um cinturão de asteróides.",
         " Não temos muitas informações sobre a origem do problema, apenas sabemos que um dos tripulantes da nave é um pato, e que...",
         " Espere, um pato?",
         " Isso não me parece estar correto.",
@@ -360,7 +360,7 @@ const startInitialMsgTransmission = () => {
         " Holy duck!",
         " As informações estão corretas, e o pato se localiza fora da nave e precisa ser resgatado!",
         " Um pato...no espaço...",
-        " É, não é todo dia que recebemos um sinal de socorro desse porte.",
+        " É, não é todo dia que recebemos um sinal de socorro dessa magnitude.",
         " Você poderia nos ajudar nessa missão?",
     ]
 

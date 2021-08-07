@@ -153,7 +153,7 @@ body {
 }
 
 .info_msg_broadcast {
-    max-width: 400px;
+    max-width: 500px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -172,6 +172,10 @@ body {
 .info_msg_broadcast p {
     line-height: 25px;
     font-size: 14px;
+}
+
+.info_msg_broadcast p .line-through{
+    text-decoration: line-through;
 }
 
 .broadcast_button {
@@ -200,7 +204,7 @@ body {
 .receiver__container{
     display: none;
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     /* display: flex; */
     flex-direction: column;
     align-items: center;
@@ -340,6 +344,30 @@ body {
     position: absolute;
 }
 
+.space_duck::before {
+    content: "Identificação: Desconhecida\A Tipo: Emborrachado\A País de Origem: Brasil\A Ocupação: Debugger\A Traje de Proteção: Ausente\A Capacete: F331-KZ";
+    position: absolute;
+    left: -110px;
+    top: -35px;
+    background: #000000a6;
+    pointer-events: none;
+    color: white;
+    white-space: pre;
+    word-wrap: break-word;
+    font-size: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    font-family: monospace;
+    line-height: 14px;
+    opacity: 0;
+    border-width: 3px;
+    border-style: double;
+    border-color: #dee1ea transparent transparent transparent;
+}
+
+.space_duck:hover::before {
+    opacity: 1;
+}
 
 .space_duck {
     margin-top: 4px;
@@ -358,7 +386,7 @@ body {
     height: 100%;
     transform: scale(1.6);
     filter: saturate(3);
-    image-rendering: optimizeQuality;
+    image-rendering: pixelated;
     animation: duckImg_animation 25s infinite linear;
 }
 
@@ -407,7 +435,7 @@ body {
     
     background: url('asteroids2.png');
     background-size: cover;
-    animation: block_animation 20s infinite linear;
+    animation: block_animation 50s infinite linear;
     /* filter: hue-rotate(150deg); */
 }
 
@@ -434,6 +462,28 @@ body {
 .player.boosting {
     filter: drop-shadow(0px 76px 11px #AEC100);
     pointer-events: none;
+    z-index: 3;
+}
+
+.player::before {
+    content: "Modelo: F378.22-FTL-KA\A Propulsor: Orientação Vertical\A Tipo: Econômico \A Ano de Fabricação: 2286\A País: Brasil\A Agência: Kenzie Space Agency";
+    position: absolute;
+    left: 48px;
+    top: -70px;
+    background: #000000a6;
+    pointer-events: none;
+    color: white;
+    white-space: pre;
+    word-wrap: break-word;
+    font-size: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    font-family: monospace;
+    line-height: 14px;
+    opacity: 0;
+    border-width: 3px;
+    border-style: double;
+    border-color: #dee1ea transparent transparent transparent;
 }
 
 .player {
@@ -446,8 +496,14 @@ body {
     cursor: crosshair;
 }
 
+.player:hover::before {
+    opacity: 1;
+}
+
 .player:hover {
     transform: scale(3)!important;
+    filter: none;
+    transition: filter 0s linear, transform .1s linear;
 }
 
 
@@ -471,6 +527,7 @@ body {
     height: 100%;
     filter: saturate(1.5);
     transform: scale(2.2);
+    image-rendering: pixelated;
     animation: spaceship_animation 3s infinite cubic-bezier(0, 0, 0.7, 0.4);
     margin-top: 30%;
 }
@@ -481,6 +538,28 @@ body {
     } 
 }
 
+.exit::before {
+    content: "Identificação: Wormhole FJUI-Y7\A Conexão Aproximada: ~Gliese 876\A Paralelismo Anti-Pato: Não\A Sucção Máxima: 2.1011640058884113e+139";
+    position: absolute;
+    left: -140px;
+    top: -12px;
+    background: #000000a6;
+    pointer-events: none;
+    color: white;
+    white-space: pre;
+    word-wrap: break-word;
+    font-size: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    font-family: monospace;
+    line-height: 14px;
+    opacity: 0;
+    border-width: 3px;
+    border-style: double;
+    border-color: #ff0000 transparent transparent transparent;
+    
+}
+
 .exit {
     background: linear-gradient(45deg, #302b5a, #1c3cb3a8);
     border-radius: 50%;
@@ -488,12 +567,18 @@ body {
     box-shadow: 0 0 14px 13px #000000cf, inset 0 0 10px 2px black;
 
     animation: exit_anim 5s infinite linear;
-    z-index: 1;
+    z-index: 2;
     cursor: crosshair;
-    transition: all 1s linear;
+    transition: transform 1s linear;
+}
+
+.exit:hover::before {
+    opacity: 1;
 }
 
 .exit:hover {
     transform: scale(3);
+    animation: unset;
+    z-index: 4;
 }
 
