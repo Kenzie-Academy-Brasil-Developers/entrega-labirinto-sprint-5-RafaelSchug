@@ -142,6 +142,7 @@ body {
 
 .info_screen__container {
     position: absolute;
+    min-width: 500px;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -153,19 +154,37 @@ body {
 
 .info_msg_broadcast {
     max-width: 400px;
-    height: 300px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    row-gap: 10px;
     text-align: justify;
     font-family: monospace;
     background: #000;
     color: #fff;
     border-radius: 10px;
     border: 4px double white;
-    
+    display: none;
+}
+
+.info_msg_broadcast p {
+    line-height: 25px;
+    font-size: 14px;
+}
+
+.broadcast_button {
+    margin-top: 10px;
+    font-weight: bold;
+    transition: all .3s linear;
+    cursor: pointer;
+}
+
+.broadcast_button:hover {
+    transform: scale(1.1);
+    text-decoration: underline;
+    text-underline-offset: 5px;
 }
 
 @keyframes messageReceiver {

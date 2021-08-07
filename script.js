@@ -16,6 +16,7 @@ const map = [
     "WWWWWWWWWWWWWWWWWWWWW",
 ];
 
+// Labirinto
 
 const container = document.querySelector('.container');
 const fuelContainer = document.querySelector('.fuel_container');
@@ -34,7 +35,8 @@ let endGamePosition = [];
 let availablePositions = [];
 let duckPosition = [];
 let isDuckCaptured = false;
-let fuelLeft = 150;
+let fuelLeft = 85;
+
 
 let warpSound = new Audio('warp.wav');
 let outtaFuelSound = new Audio('outtafuel.wav');
@@ -42,6 +44,28 @@ let collectSound = new Audio('collect.wav');
 let bgSong = new Audio('bg_song.mp3');
 let newMsgSound = new Audio('newMessage.wav');
 let gameReadySound = new Audio('gameReady.wav');
+let clickSound = new Audio('clickeffect.wav');
+
+
+// Mensagens de transmissão:
+
+const welcomeScreenContainer = document.querySelector('.welcome_screen__container');
+const startProcess = document.querySelector('#startProcess');
+const welcomeMsg = document.querySelector('#welcome_msg');
+const newMsg = document.querySelectorAll('.newMsg');
+const showMsgBtn = document.querySelector('#showTransmission');
+const receiverContainer = document.querySelector('.receiver__container');
+const broadcastMsg = document.querySelector('#broadcastMsg');
+const acceptBtn = document.querySelector('#acceptMission');
+const skitBtn = document.querySelector('#skip_transmission');
+const infoScreen = document.querySelector('.info_screen__container');
+const infoMsg = document.querySelector('#info_msg');
+const infoMsgBroadcast = document.querySelectorAll('.info_msg_broadcast');
+const broadcastBtn = document.querySelectorAll('.broadcast_button');
+
+
+
+// Funções
 
 
 const setIdealBlockSize = () => {
@@ -144,13 +168,28 @@ const randomizeDuckLocation = () => {
     duckElement = document.querySelector('.space_duck');
 }
 
+const resetVariables = () => {
+    playerPosition = [];
+    blockPositions = [];
+    endGamePosition = [];
+    availablePositions = [];
+    duckPosition = [];
+    isDuckCaptured = false;
+    fuelLeft = 85;
+}
 
 const startGame = () => {
+    resetVariables();
     setIdealBlockSize();
     createBlocks();
     setBlockSize();
     randomizeDuckLocation();
     setEventListeners();
+
+    container.classList.remove('disappear');
+    container.style.display = 'flex';
+    fuelContainer.style.opacity = 1;
+    fuelStatusElem.value = 85;
 }
 
 
@@ -212,6 +251,7 @@ const movePlayer = (event) => {
         if(fuelLeft < 1) {
             outtaFuelSound.play();
             player.classList.remove('boosting');
+            displayBroadcastMsg(3);
             return;
         }
 
@@ -259,7 +299,12 @@ const checkVictory = () => {
 
         setTimeout(() => {
             container.style.display = 'none';
-            
+            if(isDuckCaptured){
+                displayBroadcastMsg(1);
+            } else {
+                displayBroadcastMsg(2);
+            }
+
         }, 1500)
     }
 }
@@ -279,17 +324,6 @@ const setEventListeners = () => {
 
 // Mensagens de transmissão:
 
-const welcomeScreenContainer = document.querySelector('.welcome_screen__container');
-const startProcess = document.querySelector('#startProcess');
-const welcomeMsg = document.querySelector('#welcome_msg');
-const newMsg = document.querySelectorAll('.newMsg');
-const showMsgBtn = document.querySelector('#showTransmission');
-const receiverContainer = document.querySelector('.receiver__container');
-const broadcastMsg = document.querySelector('#broadcastMsg');
-const acceptBtn = document.querySelector('#acceptMission');
-const skitBtn = document.querySelector('#skip_transmission');
-const infoScreen = document.querySelector('.info_screen__container');
-const infoMsg = document.querySelector('#info_msg');
 
 
 const startWelcomeTransmission = () => {
@@ -320,9 +354,9 @@ const startInitialMsgTransmission = () => {
     let messages = [
         "Recebemos um sinal de socorro vindo de um centurão de asteroids.",
         " Não temos muitas informações sobre a origem do problema, apenas sabemos que um dos tripulantes da nave é um pato, e que...",
-        " Espera, um pato?",
+        " Espere, um pato?",
         " Isso não me parece estar correto.",
-        " Um momento enquanto verifico a veracidade dessas informações...",
+        " Aguarde um momento enquanto verifico a veracidade dessas informações...",
         " Holy duck!",
         " As informações estão corretas, e o pato se localiza fora da nave e precisa ser resgatado!",
         " Um pato...no espaço...",
@@ -357,6 +391,7 @@ const startInitialMsgTransmission = () => {
         acceptBtn.style.opacity = '1';
         acceptBtn.style.pointerEvents = 'initial';
         acceptBtn.addEventListener('click', ()=>{
+            clickSound.play();
             prepareToStartGame();            
         })
     }, 25000)
@@ -364,19 +399,20 @@ const startInitialMsgTransmission = () => {
 }
 
 const showInfoMsg = () => {
-    infoMsg.style.display = 'none';    
+    clickSound.play();
+    infoMsg.style.display = 'none';   
+    infoMsgBroadcast[0].style.display = 'flex';
+
 }
 
 const prepareToStartGame = () => {
     welcomeScreenContainer.style.opacity = 0;
     
-    fuelContainer.style.opacity = 1;
-    container.style.display = 'block';
-    startGame();
     gameReadySound.play();
 
     setTimeout(()=>{
         welcomeScreenContainer.style.display = 'none';
+        startGame();
     }, 500);
 
     setTimeout(()=>{
@@ -389,17 +425,55 @@ const prepareToStartGame = () => {
         infoMsg.addEventListener('click', showInfoMsg);
 
     }, 1500);
+
+
+}
+
+const modalControl = (event) => {
+
+    const action = event.currentTarget.dataset.check;
+
+    clickSound.play();
+
+    infoMsgBroadcast.forEach(bcElement=>{
+        bcElement.style.display = 'none';
+    })
+
+    infoScreen.style.display = 'none';
+
+    if(action === 'restart'){
+
+        player.style.display = 'none';
+        container.classList.add('disappear');
+        
+        setTimeout(()=>{
+            [...container.children].forEach(child => {
+                child.remove();
+            })
+            container.style.display = 'none';
+            startGame();
+        }, 800);
+    }
+}
+
+const displayBroadcastMsg = (msgIndex) =>{
+    infoScreen.style.display = 'flex';
+    infoMsgBroadcast[msgIndex].style.display = 'flex';
 }
 
 showMsgBtn.addEventListener('click', ()=>{
+    
     newMsg[0].style.display = 'none';
+    clickSound.play();
     startInitialMsgTransmission();
+
 })
 
 startProcess.addEventListener('click', ()=>{
     startProcess.style.opacity = 0;
     
     bgSong.loop = true;
+    clickSound.play();
     bgSong.play();
 
 
@@ -414,6 +488,11 @@ startProcess.addEventListener('click', ()=>{
 
     
 });
+
+
+broadcastBtn.forEach(element => {
+    element.addEventListener('click', modalControl);
+})
 
 skitBtn.addEventListener('click', prepareToStartGame);
 
