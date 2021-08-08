@@ -38,6 +38,8 @@ let duckPosition = [];
 let isDuckCaptured = false;
 let fuelLeft = 85;
 
+let defaultHoverTimeout;
+
 
 let warpSound = new Audio('./assets/sounds/warp.wav');
 let outtaFuelSound = new Audio('./assets/sounds/outtafuel.wav');
@@ -84,6 +86,7 @@ const createBlocks = () => {
             const content = map[row][block];
             const div = document.createElement('div');
             const img = document.createElement('img');
+            const subdiv = document.createElement('div');
     
             if(content.includes('W')){
                 
@@ -119,7 +122,12 @@ const createBlocks = () => {
                 div.style.left = boxSize * block + "px";
                 div.style.top = boxSize * row + "px";
                 div.dataset.type = 'exit';
+
+                subdiv.classList.add('exit_subdiv');
+                subdiv.style.width = boxSize +'px';
+                subdiv.style.height = boxSize + 'px';
                 
+                div.appendChild(subdiv);
                 container.appendChild(div);
 
                 endGamePosition = [boxSize * block,  boxSize * row];
@@ -265,6 +273,17 @@ const movePlayer = (event) => {
         
 
         move[keyPressed]();
+
+        clearInterval(defaultHoverTimeout);
+
+        player.style.pointerEvents = 'none';
+        
+        defaultHoverTimeout = setTimeout(()=>{
+            player.style.pointerEvents = 'initial';
+        }, 500);
+
+
+
         player.classList.add('boosting');
         checkDuckCapture();
         checkVictory();
@@ -342,7 +361,7 @@ const displayClickedObjectInformation = (event) => {
             displayBroadcastMsg(5);
         },
         'exit': ()=>{
-            displayBroadcastMsg(4);
+            displayBroadcastMsg(6);
         }
     }
 
