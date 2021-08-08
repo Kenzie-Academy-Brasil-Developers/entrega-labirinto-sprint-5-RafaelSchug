@@ -24,6 +24,7 @@ const fuelStatusElem = document.querySelector('#fuel_status');
 
 let boxElements;
 let duckElement;
+let exitElement;
 
 let boxSize;
 let player;
@@ -99,6 +100,7 @@ const createBlocks = () => {
                 div.classList.add('player', 'default');
                 div.style.left = boxSize * block + "px";
                 div.style.top = boxSize * row + "px";
+                div.dataset.type = 'player';
                 img.classList.add('spaceship');
                 img.src = "./assets/imgs/spaceship.png";
                 
@@ -116,10 +118,12 @@ const createBlocks = () => {
                 div.classList.add('exit', 'default');
                 div.style.left = boxSize * block + "px";
                 div.style.top = boxSize * row + "px";
+                div.dataset.type = 'exit';
                 
                 container.appendChild(div);
 
                 endGamePosition = [boxSize * block,  boxSize * row];
+                exitElement = document.querySelector('.exit');
             } else {
                 availablePositions.push([boxSize * block,  boxSize * row]);
             }
@@ -161,6 +165,7 @@ const randomizeDuckLocation = () => {
     duckDiv.style.top = randomizedPosition[1]+'px';
     duckDiv.style.width = boxSize + 'px';
     duckDiv.style.height = boxSize + 'px';
+    duckDiv.dataset.type = 'duck';
 
     duckDiv.appendChild(img);
     container.appendChild(duckDiv);   
@@ -317,8 +322,39 @@ const setEventListeners = () => {
     document.addEventListener('keyup', () => {
         player.classList.remove('boosting');
     })
+    player.addEventListener('click', displayClickedObjectInformation);
+    duckElement.addEventListener('click', displayClickedObjectInformation);
+    exitElement.addEventListener('click', displayClickedObjectInformation);
 }
 
+
+const displayClickedObjectInformation = (event) => {
+    const type = event.currentTarget.dataset.type;
+
+    event.currentTarget.style.pointerEvents = 'none';
+    
+
+    const action = {
+        'player': ()=>{
+            displayBroadcastMsg(4);
+        },
+        'duck': ()=>{
+            displayBroadcastMsg(5);
+        },
+        'exit': ()=>{
+            displayBroadcastMsg(4);
+        }
+    }
+
+    action[type]();
+
+    setTimeout(()=>{
+        player.style.pointerEvents = 'initial';
+        duckElement.style.pointerEvents = 'initial';
+        exitElement.style.pointerEvents = 'initial';
+    }, 500)
+    
+}
 
 
 // Mensagens de transmissão:
@@ -356,7 +392,7 @@ const startInitialMsgTransmission = () => {
         " Isso não me parece estar correto.",
         " Aguarde um momento enquanto verifico a veracidade dessas informações...",
         " Holy duck!",
-        " As informações estão corretas, e o pato se localiza fora da nave e precisa ser resgatado!",
+        " As informações estão corretas, o pato se localiza fora da nave e precisa ser resgatado!",
         " Um pato...no espaço...",
         " É, não é todo dia que recebemos um sinal de socorro dessa magnitude.",
         " Você poderia nos ajudar nessa missão?",

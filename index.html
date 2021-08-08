@@ -9,7 +9,7 @@
     <title>Space Maze</title>
 </head>
 <body>
-    <div class="welcome_screen__container">
+    <section class="welcome_screen__container">
         <button id="startProcess">Iniciar</button>
         <h1 id="welcome_msg">Bem-vindo ao Space Maze</h1>
         <div class="newMsg">
@@ -22,43 +22,77 @@
             </div>
             <button class="default_button" id="acceptMission">Aceitar Missão</button>
         </div>
-    </div>
-    <div class="info_screen__container">
+    </section>
+    <section class="info_screen__container">
         <div class="newMsg">
             <h4 id="info_msg" class="msg_received">Nova transmissão recebida</h4>
         </div>
-        <div class="info_msg_broadcast">
-            <p>De acordo com o relatório atualizado, parece que a nave colidiu no cinturão de asteróides enquanto o pato fazia manutenções externas nos propulsores de orientação vertical. Esse relatório faz cada vez menos sentido. Propulsores de orientação vertical <strong>nunca</strong> falham. Ah, e claro, PORQUÊ UM PATO ESTARIA TENTANDO CONSERTÁ-LOS???</p>
-            <p>Bom, de volta à missão: De acordo com o relatório, é possível sair desse cinturão de asteróides através de um <em>buraco de minhoca</em>. Encontre uma forma de chegar ao objetivo e mantenha a atenção aos 85% de combustível restante na sua nave. E obviamente, não esqueça do pato. Teremos muitas perguntas para fazer à ele assim que você o resgatá-lo. Boa sorte, e que as estrelas guiem seu caminho!</p>
-            <p><em>PS: Utilize o cursor do seu mouse sobre os objetos para exibir informações.</em></p>
-            <p>{Fim da transmissão}</p>
+        <div class="info_msg_broadcast scroll">
+            <div class="scroll-content">
+                <p>De acordo com o relatório atualizado, parece que a nave colidiu no cinturão de asteróides enquanto o pato fazia manutenções externas nos propulsores de orientação vertical. Esse relatório faz cada vez menos sentido. Propulsores de orientação vertical <strong>nunca</strong> falham. Ah, e claro, PORQUÊ UM PATO ESTARIA TENTANDO CONSERTÁ-LOS???</p>
+                <p>Bom, de volta à missão: De acordo com o relatório, é possível sair desse cinturão de asteróides através de um <em>buraco de minhoca</em>. Encontre uma forma de chegar ao objetivo e mantenha a atenção aos 85% de combustível restante na sua nave. E obviamente, não esqueça do pato. Teremos muitas perguntas para fazer à ele assim que você o resgatá-lo. Boa sorte, e que as estrelas guiem seu caminho!</p>
+                <p><em>PS: Clique sobre os objetos especiais na tela para exibir informações.</em></p>
+            </div>
+            <p class="status_info">{Fim da transmissão}</p>
             <span class="broadcast_button" data-check='understood'>Entendido</span>
         </div>
-        <div class="info_msg_broadcast">
-            <p>Bom trabalho! Os relatórios internos da nave informam que a mesma já se encontra segura no sistema Gliese 876. De acordo com uma breve investigação que fizemos, o problema foi apenas uma leitura incorreta nos monitores de informação, o que levou o pato a se aventurar nos exteriores da nave. Acho que todos nós aprendemos algumas lições hoje: 
-            </p>
-            <p><strong>1</strong> - Sempre verifique <span class="line-through">duas</span> três vezes as leituras de status antes de achar necessário investigar os propulsores de orientação vertical, pois como você já deve saber, eles <strong>nunca</strong> falham. - <em>Há boatos que engenheiros espaciais testemunharam falhas quando o propulsor era utilizado em uma segunda-feira chuvosa, mas eu dúvido disso.</em></p>
-            <p><strong>2</strong> - Aparentemente, patos não devem se tornar astronautas. Minha opinião é que debugger já é uma responsabilidade alta o suficiente para esses pequenos companheiros.</p>
-            <p>{Fim da transmissão}</p>
+        <div class="info_msg_broadcast scroll">
+            <div class="scroll-content">
+                <p>Bom trabalho! Os relatórios internos da nave informam que a mesma já se encontra segura no sistema Gliese 876. De acordo com uma breve investigação que fizemos, o problema foi apenas uma leitura incorreta nos monitores de informação, o que levou o pato a se aventurar nos exteriores da nave. Acho que todos nós aprendemos algumas lições hoje: 
+                </p>
+                <p><strong>1</strong> - Sempre verifique <span class="line-through">duas</span> três vezes as leituras de status antes de achar necessário investigar os propulsores de orientação vertical, pois como você já deve saber, eles <strong>nunca</strong> falham. - <em>Há boatos que engenheiros espaciais testemunharam falhas quando o propulsor era utilizado em uma segunda-feira chuvosa, mas eu dúvido disso.</em></p>
+                <p><strong>2</strong> - Aparentemente, patos não devem se tornar astronautas. Minha opinião é que debugger já é uma responsabilidade alta o suficiente para esses pequenos companheiros.</p>
+            </div>
+            <p class="status_info">{Fim da transmissão}</p>
             <span class="broadcast_button" data-check='restart'>Reiniciar</span>
         </div>
-        <div class="info_msg_broadcast">
-            <p>Muito bem, você encontrou o buraco de minhoca. Ei, mas cadê o pato? Eu deveria ter lhe informado que recuperar o pato era uma <strong>prioridade</strong>, pois não sei se você sabe, <strong>patos não sobrevivem <span class="line-through">muito tempo</span> no espaço</strong>!</p>
-            <p>Bom, mas não se preocupe, você pode repetir a missão novamente e priorizar essa tarefa da próxima vez. Caso contrário, precisarei ter que usar o aplicativo <em>Spacey-Uber</em> para enviar uma nave de resgate. É, eu sei, você deve estar estar se perguntando porquê não enviei uma nave de resgate logo de início. Bem, você já viu a taxa de <em>warp</em> desses aplicativos? Cada distância-luz custa o valor do meu salário celestial!</p>
-            <p>{Fim da transmissão}</p>
+        <div class="info_msg_broadcast scroll">
+            <div class="scroll-content">
+                <p>Muito bem, você encontrou o buraco de minhoca. Ei, mas cadê o pato? Eu deveria ter lhe informado que recuperar o pato era uma <strong>prioridade</strong>, pois não sei se você sabe, <strong>patos não sobrevivem <span class="line-through">muito tempo</span> no espaço</strong>!</p>
+                <p>Bom, mas não se preocupe, você pode repetir a missão novamente e priorizar essa tarefa da próxima vez. Caso contrário, precisarei ter que usar o aplicativo <em>Spacey-Uber</em> para enviar uma nave de resgate. É, eu sei, você deve estar estar se perguntando porquê não enviei uma nave de resgate logo de início. Bem, você já viu a taxa de <em>warp</em> desses aplicativos? Cada distância-luz custa o valor do meu salário celestial!</p>
+            </div>
+            <p class="status_info">{Fim da transmissão}</p>
             <span class="broadcast_button" data-check='restart'>Reiniciar</span>
         </div>
-        <div class="info_msg_broadcast">
-            <p>Ficou sem combustível??? Ahh, amadores! Parece até que foi a primeira vez que você teve que pilotar uma nave modelo F378.22-FTL-KA com propulsão modular de combustão transversal. Caso você não saiba, esse modelo é o mais ecônomico da frota. Nem imagino a vergonha que você passará ao contar isso aos amigos. Se eu fosse você, manteria isso em segredo. Eu prometo não contar pra ninguém além dos meus seguidores no <em>spacegram</em>.</p>
-            <p>{Fim da transmissão}</p>
+        <div class="info_msg_broadcast scroll">
+            <div class="scroll-content">
+                <p>Ficou sem combustível??? Ah, amadores! Está parecendo que foi a primeira vez que você teve que pilotar uma nave modelo F378.22-FTL-KA com propulsão modular de combustão transversal. Caso você não saiba, esse modelo é o mais ecônomico da frota. Nem imagino a vergonha que você passará ao contar isso aos amigos. Se eu fosse você, manteria isso em segredo. Eu prometo não contar pra ninguém além dos meus seguidores no <em>Spacegram</em>.</p>
+            </div>
+            <p class="status_info">{Fim da transmissão}</p>
             <span class="broadcast_button" data-check='restart'>Reiniciar</span>
         </div>
-    </div>
-    <div class="fuel_container">
+
+        <!-- Screen objects information -->
+
+        <div class="info_msg_broadcast scroll">
+            <p><strong>Modelo:</strong> F378.22-FTL-KA</p>
+            <p><strong>Propulsor:</strong> Orientação Vertical</p>
+            <p><strong>Agência:</strong> Kenzie Space Agency</p>
+            <p><strong>Ano de Fabricação:</strong> 2032</p>
+            <p><strong>Tipo:</strong> Econômico</p>
+            <div class="scroll-content">
+                <p>Fabricada em 2032, a F378.22-FTL-KA foi uma das soluções que a KSA encontrou para resolver o problema de superaquecimento que ocorria nos modelos anteriores. A agência nunca divulgou a origem de tal problema, mas segundo fontes extramemente não confiáveis, tal problema ocorria quando o incinerador de dejetos humanos era utilizado demasiadamente em curtos intervalos de tempo.</p>
+                <p>O modelo F378.22-FTL-KA é uma das naves mais econômicas da frota espacial, consumindo apenas 3,43l de combustível químico re-aditivado por empulso. Isso é 42 vezes mais ecônomico que a L43-3-FL, a primeira nave a ficar à deriva no espaço por falta de combustível após se distanciar 42 Km da atmosfera terrestre.</p>
+            </div>
+            <span class="broadcast_button" data-check='understood'>Entendido</span>
+        </div>
+        <div class="info_msg_broadcast scroll">
+            <p><strong>Identidade:</strong> Desconhecida</p>
+            <p><strong>Origem:</strong> Kenzie Academy</p>
+            <p><strong>Ano de Fabricação:</strong> 2021</p>
+            <p><strong>Tipo:</strong> Emborrachado</p>
+            <div class="scroll-content">
+                <p>Adotados como companheiros de código na década de 90, os rubber ducks foram um dos motivos de a tecnlogia ter evoluído tão de pressa nos últimos anos. Devido suas excelentes habilidades de análise lógica, os desenvolvedores conseguiam rapidamente encontrar falhas em seus códigos quando apresentados aos patos. Um pequeno sindicato de proteção ao pato foi fundado em 2026, quando uma das espaçonaves da agência SpaceY colidiu com um satélite que transmitia ondas de rádio com músicas não licenciadas dos anos 80. As análises da colisão informavam que um erro havia sido detectado no código de operação da nave. Um dos desenvolvedores responsáveis pelo software de operação, admitiu que tudo aconteceu devido à falta de um ';' em uma das linhas de código, mas que a falha havia passado despercebida por seu pato. Em 2028, após uma detalhada investigação, foram encontradas provas de que o código nunca havia sido exibido ao pato, o que acarretou em sua inocência.</p>
+                <p>Embora patos sejam ótimos em analisar códigos, os mesmos nunca foram vistos pilotando naves espaciais, o que torna esse chamado de socorro, algo histórico.</p>
+            </div>
+            <span class="broadcast_button" data-check='understood'>Entendido</span>
+        </div>
+    </section>
+    <section class="fuel_container">
         <meter id="fuel_status" min="0" max="100" value="85"></meter>
-    </div>
-    <div class="container">
-    </div>
+    </section>
+    <section class="container">
+    </section>
     <script src="./assets/scripts/script.js"></script>
 </body>
 </html>

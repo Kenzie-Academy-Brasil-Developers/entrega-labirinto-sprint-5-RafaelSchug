@@ -9,6 +9,10 @@
     padding: 0;
 }
 
+:root {
+    --default-object-scale: scale(2.2);
+}
+
 body {
     padding: initial;
     margin: initial;
@@ -97,7 +101,6 @@ body {
 
 .newMsg {
     display: none;
-    /* display: flex; */
     flex-direction: column;
     align-items: center;
     row-gap: 10px;
@@ -128,7 +131,7 @@ body {
     border: 1px solid #464646;
     box-shadow: inset 0 0 5px 1px #0c0c0c, 0 0 3px 2px #191919;
     cursor: pointer;
-    transition: all .5s linear, transform unset;
+    transition: all .6s linear;
     opacity: 0;
     pointer-events: none;
     border-radius: 10px;
@@ -227,19 +230,57 @@ body {
     font-size: 14px;
 }
 
+.info_msg_broadcast .status_info{
+    margin-top: 10px;
+    text-align: center;
+}
+
 .info_msg_broadcast p .line-through{
     text-decoration: line-through;
 }
 
-.broadcast_button {
+.info_msg_broadcast.scroll {
+    row-gap: unset;
+}
+
+.info_msg_broadcast.scroll p {
+    width: 100%;
+}
+
+.info_msg_broadcast.scroll > .scroll-content{
     margin-top: 10px;
+    max-height: 320px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid;
+    scrollbar-color: #a148ff #272727;
+
+}
+
+::-webkit-scrollbar-track {
+    background: #272727;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #7c00ff;
+    border-radius: 4px;
+    width: 5px;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+.broadcast_button {
+    margin-top: 14px;
     font-weight: bold;
-    transition: all .3s linear;
+    transition: all .1s linear;
     cursor: pointer;
+    padding: 5px 10px;
 }
 
 .broadcast_button:hover {
-    transform: scale(1.1);
+    transform: scale(1.15);
     text-decoration: underline;
     text-underline-offset: 5px;
 }
@@ -258,7 +299,6 @@ body {
     display: none;
     width: 100%;
     max-width: 500px;
-    /* display: flex; */
     flex-direction: column;
     align-items: center;
     row-gap: 10px;
@@ -298,6 +338,7 @@ body {
     cursor: pointer;
     transition: all .1s linear;
     animation: skip_transmission 1s 1 linear;
+    padding: 5px 10px;
 }
 
 #skip_transmission:hover {
@@ -398,19 +439,15 @@ body {
 }
 
 .space_duck::before {
-    content: "Identificação: Desconhecida\A Tipo: Emborrachado\A Ocupação: Debugger\A Traje de Proteção: Ausente\A Capacete: F331-KZ";
+    content: "Exibir Informações";
     position: absolute;
-
     left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-
+    top: -110%;
+    transform: translateX(-50%);
     background: #000000d6;
-    
     pointer-events: none;
     color: white;
     white-space: pre;
-    word-wrap: break-word;
     font-size: 0.4rem;
     padding: 5px;
     border-radius: 10px;
@@ -420,7 +457,6 @@ body {
     border-width: 3px;
     border-style: double;
     border-color: #dee1ea transparent transparent transparent;
-
     z-index: 1;
 }
 
@@ -439,20 +475,20 @@ body {
     from {
         transform: scale(1.6) rotate(360deg);
     }
+    to {
+        transform: scale(1.6) rotate(0deg);
+    }
 }
 
 .space_duck img {
     height: 100%;
-    transform: scale(1.6);
     filter: saturate(3);
-    /* image-rendering: pixelated; */
     animation: duckImg_animation 25s infinite linear;
 }
 
 .space_duck:hover {
-    transform: scale(2);
+    transform: var(--default-object-scale);
     z-index: 4;
-
 }
 
 @keyframes capturing_duck {
@@ -464,7 +500,6 @@ body {
         opacity: 0;
         transform: scale(0.5) rotate(360deg);
     }
-    
 }
 
 .space_duck.captured {
@@ -481,7 +516,6 @@ body {
 
 .block {
     transform: scale(1.2);
-    /* filter: drop-shadow(1px 6px 15px black) grayscale(1); */
 }
 
 .block:nth-child(even){
@@ -495,7 +529,6 @@ body {
     background: url('../imgs/asteroids2.png');
     background-size: cover;
     animation: block_animation 50s infinite linear;
-    /* filter: hue-rotate(150deg); */
 }
 
 
@@ -525,15 +558,12 @@ body {
 }
 
 .player::before {
-    content: "Modelo: F378.22-FTL-KA\A Propulsor: Orientação Vertical\A Tipo: Econômico \A Ano de Fabricação: 2286\A Agência: Kenzie Space Agency";
+    content: "Exibir Informações";
     position: absolute;
 
-
-    /* left: 48px;
-    top: -70px; */
     left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
+    top: -110%;
+    transform: translateX(-50%);
 
     background: #000000d6;
     pointer-events: none;
@@ -568,7 +598,7 @@ body {
 }
 
 .player:hover {
-    transform: scale(2)!important;
+    transform: var(--default-object-scale)!important;
     filter: none;
     transition: filter 0s linear, transform .1s linear;
 }
@@ -594,7 +624,6 @@ body {
     height: 100%;
     filter: saturate(1.5);
     transform: scale(2.2);
-    /* image-rendering: pixelated; */
     animation: spaceship_animation 3s infinite cubic-bezier(0, 0, 0.7, 0.4);
     margin-top: 30%;
 }
@@ -606,17 +635,14 @@ body {
 }
 
 .exit::before {
-    content: "Identificação: Wormhole FJUI-Y7\A Conexão Aproximada: ~Gliese 876\A Paralelismo Anti-Pato: Improvável\A Sucção Máxima: 2.1011640058884113e+139";
+    content: "Exibir Informações";
     position: absolute;
 
-
-    /* left: -100px;
-    top: -18px; */
-
     max-width: 200px;
+
     left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
+    top: -110%;
+    transform: translateX(-50%);
 
     background: #000000d6;
 
@@ -646,7 +672,6 @@ body {
     z-index: 2;
     cursor: crosshair;
     transition: transform 1s linear;
-    /* border: 5px double #1d1d1d; */
 }
 
 .exit:hover::before {
@@ -655,7 +680,7 @@ body {
 
 .exit:hover {
     transition: none;
-    transform: scale(2);
+    transform: var(--default-object-scale);
     animation: unset;
     z-index: 4;
 }
