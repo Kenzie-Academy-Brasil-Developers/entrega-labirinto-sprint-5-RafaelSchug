@@ -41,14 +41,17 @@ let fuelLeft = 85;
 let defaultHoverTimeout;
 
 
-let warpSound = new Audio('./assets/sounds/warp.wav');
-let outtaFuelSound = new Audio('./assets/sounds/outtafuel.wav');
-let collectSound = new Audio('./assets/sounds/collect.wav');
-let bgSong = new Audio('./assets/sounds/bg_song.mp3');
-let newMsgSound = new Audio('./assets/sounds/newMessage.wav');
-let gameReadySound = new Audio('./assets/sounds/gameReady.wav');
-let clickSound = new Audio('./assets/sounds/clickeffect.wav');
-
+const warpSound = new Audio('./assets/sounds/warp.wav');
+const outtaFuelSound = new Audio('./assets/sounds/outtafuel.wav');
+const collectSound = new Audio('./assets/sounds/collect.wav');
+const bgSong = new Audio('./assets/sounds/bg_song.mp3');
+const newMsgSound = new Audio('./assets/sounds/newMessage.wav');
+const gameReadySound = new Audio('./assets/sounds/gameReady.wav');
+const clickSound = new Audio('./assets/sounds/clickeffect.wav');
+// const broadcastSound = new Audio('./assets/sounds/broadcasting.wav');
+const displaySound = new Audio('./assets/sounds/displaySound.wav');
+const rewindSound = new Audio('./assets/sounds/rewind.wav');
+const engineSound = new Audio('./assets/sounds/engine.mp3');
 
 // var relacionadas à mensagens de transmissão:
 
@@ -60,7 +63,7 @@ const showMsgBtn = document.querySelector('#showTransmission');
 const receiverContainer = document.querySelector('.receiver__container');
 const broadcastMsg = document.querySelector('#broadcastMsg');
 const acceptBtn = document.querySelector('#acceptMission');
-const skitBtn = document.querySelector('#skip_transmission');
+const skipBtn = document.querySelector('#skip_transmission');
 const infoScreen = document.querySelector('.info_screen__container');
 const infoMsg = document.querySelector('#info_msg');
 const infoMsgBroadcast = document.querySelectorAll('.info_msg_broadcast');
@@ -205,6 +208,12 @@ const startGame = () => {
     container.style.display = 'flex';
     fuelContainer.style.opacity = 1;
     fuelStatusElem.value = 85;
+
+    rewindSound.volume = 0.3;
+    displaySound.volume = 0.5;
+    clickSound.volume = 0.5;
+    engineSound.currentTime = 1;
+    engineSound.volume = 0.5;
 }
 
 
@@ -274,10 +283,14 @@ const movePlayer = (event) => {
 
         move[keyPressed]();
 
+        if(engineSound.paused){
+            engineSound.play();
+        }
+
         clearInterval(defaultHoverTimeout);
 
         player.style.pointerEvents = 'none';
-        
+
         defaultHoverTimeout = setTimeout(()=>{
             player.style.pointerEvents = 'initial';
         }, 500);
@@ -340,6 +353,7 @@ const setEventListeners = () => {
     document.addEventListener('keydown', movePlayer);
     document.addEventListener('keyup', () => {
         player.classList.remove('boosting');
+        engineSound.pause();
     })
     player.addEventListener('click', displayClickedObjectInformation);
     duckElement.addEventListener('click', displayClickedObjectInformation);
@@ -453,6 +467,8 @@ const startInitialMsgTransmission = () => {
 
 const showInfoMsg = () => {
     clickSound.play();
+    displaySound.play();
+    
     infoMsg.style.display = 'none';   
     infoMsgBroadcast[0].style.display = 'flex';
 
@@ -510,6 +526,9 @@ const modalControl = (event) => {
 
         player.style.display = 'none';
         container.classList.add('disappear');
+
+        rewindSound.volume = 0.4;
+        rewindSound.play();
         
         setTimeout(()=>{
             [...container.children].forEach(child => {
@@ -522,15 +541,24 @@ const modalControl = (event) => {
 }
 
 const displayBroadcastMsg = (msgIndex) =>{
+
+    displaySound.play();
     infoScreen.style.display = 'flex';
     infoMsgBroadcast[msgIndex].style.display = 'flex';
     infoScreen.style.opacity = 1;
 }
 
+
+
+
+
+
 showMsgBtn.addEventListener('click', ()=>{
     
     newMsg[0].style.display = 'none';
+
     clickSound.play();
+
     startInitialMsgTransmission();
 
 })
@@ -560,6 +588,9 @@ broadcastBtn.forEach(element => {
     element.addEventListener('click', modalControl);
 })
 
-skitBtn.addEventListener('click', prepareToStartGame);
+skipBtn.addEventListener('click', ()=>{
+    clickSound.play();
+    prepareToStartGame();
+});
 
 
