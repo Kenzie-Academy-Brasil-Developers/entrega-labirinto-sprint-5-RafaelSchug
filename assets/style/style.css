@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'm_moderno';
-    src: url('assets/fonts/MuseoModerno.ttf');
+    src: url('../fonts/MuseoModerno.ttf');
 }
 
 * {
@@ -15,7 +15,7 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: #35227c url('space.jpg');
+    background: #35227c url('../imgs/space.jpg');
     background-size: cover;
     overflow: hidden;
     flex-direction: column;
@@ -75,7 +75,6 @@ body {
     pointer-events: none;
     animation: welcome_msg 5s 1 ease-in-out;
     font-size: 38px;
-    font-family: monospace;
     color: white;
     text-shadow: 0 0 20px #000, 0 0 17px #000;
     font-family: 'm_moderno';
@@ -122,25 +121,25 @@ body {
 .default_button {
     width: 200px;
     height: 50px;
-    background: linear-gradient(180deg, #8af653, #196600);
+    background: linear-gradient(180deg, #46c008, #164f04);
     font-weight: bold;
     color: #fff;
-    text-shadow: 0 0 2px #2a2a2a;
     text-transform: uppercase;
     border: 1px solid #464646;
     box-shadow: inset 0 0 5px 1px #0c0c0c, 0 0 3px 2px #191919;
     cursor: pointer;
-    transition: all .5s linear;
+    transition: all .5s linear, transform unset;
     opacity: 0;
     pointer-events: none;
+    border-radius: 10px;
 }
 
 .default_button:hover {
-    background: linear-gradient(180deg, #41c100, #144d02);
+    background: linear-gradient(180deg, #47cd04, #1a7000);
 }
 
 .default_button:active {
-    transform: scale(0.98);
+    transform: scale(0.96);
 }
 
 
@@ -402,9 +401,6 @@ body {
     content: "Identificação: Desconhecida\A Tipo: Emborrachado\A Ocupação: Debugger\A Traje de Proteção: Ausente\A Capacete: F331-KZ";
     position: absolute;
 
-
-    /* left: -80px;
-    top: -25px; */
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
@@ -415,7 +411,7 @@ body {
     color: white;
     white-space: pre;
     word-wrap: break-word;
-    font-size: 0.3rem;
+    font-size: 0.4rem;
     padding: 5px;
     border-radius: 10px;
     font-family: monospace;
@@ -454,7 +450,7 @@ body {
 }
 
 .space_duck:hover {
-    transform: scale(3);
+    transform: scale(2);
     z-index: 4;
 
 }
@@ -489,14 +485,14 @@ body {
 }
 
 .block:nth-child(even){
-    background: url('asteroids.png');
+    background: url('../imgs/asteroids.png');
     background-size: cover;
     animation: block_animation 60s infinite linear;
 }
 
 .block:nth-child(odd){
     
-    background: url('asteroids2.png');
+    background: url('../imgs/asteroids2.png');
     background-size: cover;
     animation: block_animation 50s infinite linear;
     /* filter: hue-rotate(150deg); */
@@ -544,7 +540,7 @@ body {
     color: white;
     white-space: pre;
     word-wrap: break-word;
-    font-size: 0.3rem;
+    font-size: 0.4rem;
     padding: 5px;
     border-radius: 10px;
     font-family: monospace;
@@ -572,7 +568,7 @@ body {
 }
 
 .player:hover {
-    transform: scale(3)!important;
+    transform: scale(2)!important;
     filter: none;
     transition: filter 0s linear, transform .1s linear;
 }
@@ -628,7 +624,7 @@ body {
     color: white;
     white-space: pre;
     word-wrap: break-word;
-    font-size: 0.3rem;
+    font-size: 0.4rem;
     padding: 5px;
     border-radius: 10px;
     font-family: monospace;
@@ -659,7 +655,7 @@ body {
 
 .exit:hover {
     transition: none;
-    transform: scale(3);
+    transform: scale(2);
     animation: unset;
     z-index: 4;
 }

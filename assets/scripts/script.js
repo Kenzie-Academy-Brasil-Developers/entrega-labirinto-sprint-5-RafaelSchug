@@ -16,7 +16,7 @@ const map = [
     "WWWWWWWWWWWWWWWWWWWWW",
 ];
 
-// Labirinto
+
 
 const container = document.querySelector('.container');
 const fuelContainer = document.querySelector('.fuel_container');
@@ -38,16 +38,16 @@ let isDuckCaptured = false;
 let fuelLeft = 85;
 
 
-let warpSound = new Audio('warp.wav');
-let outtaFuelSound = new Audio('outtafuel.wav');
-let collectSound = new Audio('collect.wav');
-let bgSong = new Audio('bg_song.mp3');
-let newMsgSound = new Audio('newMessage.wav');
-let gameReadySound = new Audio('gameReady.wav');
-let clickSound = new Audio('clickeffect.wav');
+let warpSound = new Audio('./assets/sounds/warp.wav');
+let outtaFuelSound = new Audio('./assets/sounds/outtafuel.wav');
+let collectSound = new Audio('./assets/sounds/collect.wav');
+let bgSong = new Audio('./assets/sounds/bg_song.mp3');
+let newMsgSound = new Audio('./assets/sounds/newMessage.wav');
+let gameReadySound = new Audio('./assets/sounds/gameReady.wav');
+let clickSound = new Audio('./assets/sounds/clickeffect.wav');
 
 
-// Mensagens de transmissão:
+// var relacionadas à mensagens de transmissão:
 
 const welcomeScreenContainer = document.querySelector('.welcome_screen__container');
 const startProcess = document.querySelector('#startProcess');
@@ -65,7 +65,7 @@ const broadcastBtn = document.querySelectorAll('.broadcast_button');
 
 
 
-// Funções
+// Funções principais de preparação, geração do labirinto e movimentação
 
 
 const setIdealBlockSize = () => {
@@ -100,7 +100,7 @@ const createBlocks = () => {
                 div.style.left = boxSize * block + "px";
                 div.style.top = boxSize * row + "px";
                 img.classList.add('spaceship');
-                img.src = "spaceship.png";
+                img.src = "./assets/imgs/spaceship.png";
                 
                 div.appendChild(img);
                 container.appendChild(div);
@@ -153,8 +153,8 @@ const randomizeDuckLocation = () => {
     const duckDiv = document.createElement('div');
     const img = document.createElement('img');
 
-    img.classList.add('space_duck_img');
-    img.src = "spaceDuck.png";
+    img.classList.add('space_duck');
+    img.src = "./assets/imgs/spaceDuck.png";
 
     duckDiv.classList.add('space_duck', 'default');
     duckDiv.style.left = randomizedPosition[0]+'px';
@@ -319,13 +319,9 @@ const setEventListeners = () => {
     })
 }
 
-// startGame();
-
-
 
 
 // Mensagens de transmissão:
-
 
 
 const startWelcomeTransmission = () => {
@@ -355,7 +351,7 @@ const startInitialMsgTransmission = () => {
 
     let messages = [
         "Recebemos um sinal de socorro vindo de um cinturão de asteróides.",
-        " Não temos muitas informações sobre a origem do problema, apenas sabemos que um dos tripulantes da nave é um pato, e que...",
+        " Não temos muitas informações sobre a origem do problema, apenas sabemos que o tripulante da nave era um pato, e que...",
         " Espere, um pato?",
         " Isso não me parece estar correto.",
         " Aguarde um momento enquanto verifico a veracidade dessas informações...",
