@@ -53,6 +53,7 @@ const infoScreen = document.querySelector('.info_screen__container');
 const infoMsg = document.querySelector('#info_msg');
 const infoMsgBroadcast = document.querySelectorAll('.info_msg_broadcast');
 const broadcastBtn = document.querySelectorAll('.broadcast_button');
+const fuelEfficiency = document.querySelector('#fe_bar');
 
 
 
@@ -303,12 +304,13 @@ const movePlayer = (event) => {
 
 
 const updateFuel = () => {
-    if(fuelReducer > 3){
+    if(fuelReducer > 2){
         fuelReducer-= 1;
     } 
     fuelLeft-=fuelReducer;
     fuelStatusElem.value = fuelLeft;
-    console.log(fuelReducer, fuelLeft);
+    
+    fuelEfficiency.style.width = 10 * (12 - fuelReducer)+'%';
 
     if(fuelLeft < 1 && isPlaying) {
         outtaFuelSound.play();
@@ -368,6 +370,7 @@ const setEventListeners = () => {
         clearTimeout(fuelReducerTimer);
         fuelReducerTimer = setTimeout(()=>{
             fuelReducer = 11;
+            fuelEfficiency.style.width = '0%';
         }, 500);
     })
 

@@ -390,6 +390,34 @@ body {
     pointer-events: none;
 }
 
+.fuel_container .fuel_efficiency {
+    width: 50%;
+    height: 15px;
+    margin: auto;
+    background: #535353;
+    box-shadow: inset 0 0 4px 1px #050505;
+    position: relative;
+}
+
+.fuel_efficiency .bar {
+    width: 0%;
+    height: 15px;
+    background: #e600ff;
+    box-shadow: inset 0 0 4px 1px #131313;
+    transition: all .1s linear;
+}
+
+.fuel_efficiency::after {
+    content: "Eficiência:";
+    font-family: var(--default-text-font);
+    font-size: 13px;
+    position: absolute;
+    top: -3px;
+    left: -50px;
+    color: #fff;
+    transform: translateX(-50%);
+}
+
 .fuel_container::after {
     content: "Combustível";
     position: absolute;
