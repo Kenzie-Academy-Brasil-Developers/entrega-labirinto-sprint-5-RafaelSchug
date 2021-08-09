@@ -397,14 +397,16 @@ body {
     background: #535353;
     box-shadow: inset 0 0 4px 1px #050505;
     position: relative;
+    border-radius: 10px;
 }
 
 .fuel_efficiency .bar {
     width: 0%;
     height: 15px;
-    background: #e600ff;
-    box-shadow: inset 0 0 4px 1px #131313;
+    background: #bd14ff;
+    box-shadow: inset 0 0 4px 1px #000000;
     transition: all .1s linear;
+    border-radius: 10px;
 }
 
 .fuel_efficiency::after {
@@ -444,11 +446,13 @@ body {
 
 ::-webkit-meter-bar {
     border: 3px solid #2b2b2b;
+    box-shadow: inset 0 0 4px 1px #000000;
 }
 
 ::-webkit-meter-optimum-value {
     background: linear-gradient(90deg, #ec0000, #ffff17, #03f703);
     transition: all .2s linear;
+    box-shadow: inset 0 0 4px 1px #000000;
 }
 
 @keyframes show_container {

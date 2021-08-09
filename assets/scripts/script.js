@@ -18,7 +18,7 @@ let endGamePosition = [];
 let availablePositions = [];
 let duckPosition = [];
 let isDuckCaptured = false;
-let fuelLeft = 1000;
+let fuelLeft = 500;
 let fuelReducer = 11;
 let fuelReducerTimer;
 let isPlaying = true;
@@ -36,7 +36,7 @@ const clickSound = new Audio('./assets/sounds/clickeffect.wav');
 // const broadcastSound = new Audio('./assets/sounds/broadcasting.wav');
 const displaySound = new Audio('./assets/sounds/displaySound.wav');
 const rewindSound = new Audio('./assets/sounds/rewind.wav');
-const engineSound = new Audio('./assets/sounds/engine.mp3');
+// const engineSound = new Audio('./assets/sounds/engine.mp3');
 
 // var relacionadas à mensagens de transmissão:
 
@@ -177,7 +177,7 @@ const resetVariables = () => {
     availablePositions = [];
     duckPosition = [];
     isDuckCaptured = false;
-    fuelLeft = 1000;
+    fuelLeft = 500;
     fuelReducer = 11;
     isPlaying = true;
 }
@@ -214,8 +214,9 @@ const startGame = () => {
     rewindSound.volume = 0.3;
     displaySound.volume = 0.5;
     clickSound.volume = 0.5;
-    engineSound.currentTime = 1;
-    engineSound.volume = 0.5;
+    
+    // engineSound.currentTime = 1;
+    // engineSound.volume = 0.5;
 }
 
 
@@ -277,9 +278,10 @@ const movePlayer = (event) => {
         
        if(isPlaying){
             move[keyPressed]();
-            if(engineSound.paused){
-                engineSound.play();
-            }
+
+            // if(engineSound.paused){
+            //     engineSound.play();
+            // }
 
             clearInterval(defaultHoverTimeout);
 
@@ -365,7 +367,7 @@ const setEventListeners = () => {
     document.addEventListener('keydown', movePlayer);
     document.addEventListener('keyup', () => {
         player.classList.remove('boosting');
-        engineSound.pause();
+        // engineSound.pause();
 
         clearTimeout(fuelReducerTimer);
         fuelReducerTimer = setTimeout(()=>{
