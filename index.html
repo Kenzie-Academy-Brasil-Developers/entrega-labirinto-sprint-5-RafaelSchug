@@ -32,7 +32,10 @@
             <div class="scroll-content">
                 <p>De acordo com o relatório atualizado, parece que a nave colidiu no cinturão de asteróides enquanto o pato fazia manutenções externas nos propulsores de orientação vertical. Esse relatório faz cada vez menos sentido. Propulsores de orientação vertical <strong>nunca</strong> falham. Ah, e claro, PORQUÊ UM PATO ESTARIA TENTANDO CONSERTÁ-LOS???</p>
                 <p>Bom, de volta à missão: De acordo com o relatório, é possível sair desse cinturão de asteróides através de um <em>Portal Intergaláctico</em> localizado no fim do cinturão. Encontre uma forma de chegar ao objetivo e mantenha-se antento ao combustível restante na nave. E obviamente, não esqueça do pato. Teremos muitas perguntas para fazer à ele assim que você o resgatá-lo. Boa sorte, e que as estrelas guiem seu caminho!</p>
-                <p><strong><em>PS: Clique sobre os objetos especiais na tela para exibir informações.</em></strong></p>
+                <br>
+                <p class="tips"><strong>Dicas:</strong></p>
+                <p class="tips">Clique sobre os objetos especiais na tela para exibir informações.</p>
+                <p class="tips">Devido à gravidade zero, sua nave irá gastar menos combustível quando estiver em velocidade máxima. Tente utilizar isso a seu favor.</p>
             </div>
             <p class="status_info">{Fim da transmissão}</p>
             <span class="broadcast_button" data-check='understood'>Entendido</span>
@@ -84,7 +87,7 @@
             <p><strong>Tipo:</strong> Emborrachado</p>
             <div class="scroll-content">
                 <p>Adotados como companheiros de código na década de 90, os rubber ducks foram um dos motivos de a tecnlogia ter evoluído tão de pressa nos últimos anos. Devido suas excelentes habilidades de análise lógica, os desenvolvedores conseguiam rapidamente encontrar falhas em seus códigos quando apresentados aos patos. Um SPP (Sindicato de Proteção ao Pato) foi fundado em 2046, quando uma das espaçonaves da agência <em>SpaceyX</em> colidiu com um satélite que transmitia ondas de rádio com músicas não licenciadas dos anos 80. As análises da colisão informavam que um erro havia sido detectado no código de operação da nave. Um dos desenvolvedores responsáveis pelo software de operação, admitiu que tudo aconteceu devido à falta de um ';' em uma das linhas de código, mas que a falha havia passado despercebida por seu pato. Em 2048, após uma detalhada investigação, foram encontradas provas de que o código nunca havia sido exibido ao pato, o que acarretou em sua inocência.</p>
-                <p>Embora patos sejam ótimos em analisar códigos, os mesmos nunca foram vistos pilotando naves espaciais, o que torna esse chamado de socorro, algo que se tornará histórico.</p>
+                <p>Embora patos sejam ótimos em analisar códigos, os mesmos nunca foram vistos pilotando naves espaciais, o que faz desse chamado de socorro, algo que se tornará histórico.</p>
             </div>
             <span class="broadcast_button" data-check='understood'>Entendido</span>
         </div>
@@ -100,10 +103,11 @@
         </div>
     </section>
     <section class="fuel_container">
-        <meter id="fuel_status" min="0" max="85" value="85"></meter>
+        <meter id="fuel_status" min="0" max="1000" value="1000"></meter>
     </section>
     <section class="container">
     </section>
+    <script src='./assets/scripts/maps.js'></script>
     <script src="./assets/scripts/script.js"></script>
 </body>
 </html>

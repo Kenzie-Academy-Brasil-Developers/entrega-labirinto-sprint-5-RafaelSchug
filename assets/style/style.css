@@ -8,7 +8,7 @@
     src: url('../fonts/RobotoMono.ttf');
 }
 
-* {
+body, section, div, h1, h2, h3, h4, p, em, strong {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -270,7 +270,10 @@ body {
     padding: 10px;
     border: 1px solid;
     scrollbar-color: #a148ff #272727;
+}
 
+.scroll-content .tips {
+    margin-bottom: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -417,7 +420,7 @@ body {
 
 ::-webkit-meter-optimum-value {
     background: linear-gradient(90deg, #ec0000, #ffff17, #03f703);
-    transition: all .3s linear;
+    transition: all .2s linear;
 }
 
 @keyframes show_container {

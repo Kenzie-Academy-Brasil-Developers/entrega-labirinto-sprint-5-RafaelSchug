@@ -1,23 +1,3 @@
-const map = [
-    "WWWWWWWWWWWWWWWWWWWWW",
-    "W   W     W     W W W",
-    "W W W WWW WWWWW W W W",
-    "W W W   W     W W   W",
-    "W WWWWWWW W WWW W W W",
-    "W         W     W W W",
-    "W WWW WWWWW WWWWW W W",
-    "W W   W   W W     W W",
-    "W WWWWW W W W WWW W F",
-    "S     W W W W W W WWW",
-    "WWWWW W W W W W W W W",
-    "W     W W W   W W W W",
-    "W WWWWWWW WWWWW W W W",
-    "W               W   W",
-    "WWWWWWWWWWWWWWWWWWWWW",
-];
-
-
-
 const container = document.querySelector('.container');
 const fuelContainer = document.querySelector('.fuel_container');
 const fuelStatusElem = document.querySelector('#fuel_status');
@@ -26,6 +6,8 @@ let boxElements;
 let duckElement;
 let exitElement;
 
+let map = [];
+let maps_rotation = [];
 let boxSize;
 let player;
 let spaceship;
@@ -36,7 +18,10 @@ let endGamePosition = [];
 let availablePositions = [];
 let duckPosition = [];
 let isDuckCaptured = false;
-let fuelLeft = 85;
+let fuelLeft = 1000;
+let fuelReducer = 11;
+let fuelReducerTimer;
+let isPlaying = true;
 
 let defaultHoverTimeout;
 
@@ -159,10 +144,8 @@ const setBlockSize = () => {
 
 const randomizeDuckLocation = () => {
 
-    const idealValue = boxSize * (map[0].length - 10);
-    const idealPositions = availablePositions.filter(e => e[0] >= idealValue);
-    // const randomizedPosition = idealPositions[Math.floor(Math.random() * idealPositions.length)];
-    const randomizedPosition = availablePositions[Math.floor(Math.random() * idealPositions.length)];
+    const idealPositions = availablePositions.filter(e => e[0] >= boxSize * 8 && e[0] <= ((map[0].length - 8) * boxSize));
+    const randomizedPosition = idealPositions[Math.floor(Math.random() * idealPositions.length)];
 
     
     const duckDiv = document.createElement('div');
@@ -193,10 +176,28 @@ const resetVariables = () => {
     availablePositions = [];
     duckPosition = [];
     isDuckCaptured = false;
-    fuelLeft = 85;
+    fuelLeft = 1000;
+    fuelReducer = 11;
+    isPlaying = true;
+}
+
+const randomizeMap = () =>{
+    
+    if(maps_rotation.length === 0){
+        for(let x = 0; x < maps.length - 1; x++){
+            maps_rotation.push(x);
+        }
+    }
+
+    let randomNumber = Math.floor(Math.random() * maps_rotation.length);
+
+    map = maps[maps_rotation[randomNumber]];
+    maps_rotation.splice(randomNumber, 1);
+
 }
 
 const startGame = () => {
+    randomizeMap();
     resetVariables();
     setIdealBlockSize();
     createBlocks();
@@ -207,7 +208,7 @@ const startGame = () => {
     container.classList.remove('disappear');
     container.style.display = 'flex';
     fuelContainer.style.opacity = 1;
-    fuelStatusElem.value = 85;
+    fuelStatusElem.value = 1000;
 
     rewindSound.volume = 0.3;
     displaySound.volume = 0.5;
@@ -272,42 +273,50 @@ const movePlayer = (event) => {
         }
 
         
-        if(fuelLeft < 1) {
-            outtaFuelSound.play();
-            player.classList.remove('boosting');
-            displayBroadcastMsg(3);
-            return;
-        }
-
         
+       if(isPlaying){
+            move[keyPressed]();
+            if(engineSound.paused){
+                engineSound.play();
+            }
 
-        move[keyPressed]();
+            clearInterval(defaultHoverTimeout);
 
-        if(engineSound.paused){
-            engineSound.play();
-        }
+            player.style.pointerEvents = 'none';
 
-        clearInterval(defaultHoverTimeout);
-
-        player.style.pointerEvents = 'none';
-
-        defaultHoverTimeout = setTimeout(()=>{
-            player.style.pointerEvents = 'initial';
-        }, 500);
-
+            defaultHoverTimeout = setTimeout(()=>{
+                player.style.pointerEvents = 'initial';
+            }, 500);
 
 
-        player.classList.add('boosting');
-        checkDuckCapture();
-        checkVictory();
-        updateFuel();
+
+            player.classList.add('boosting');
+            checkDuckCapture();
+            checkVictory();
+            setTimeout(()=>{
+                updateFuel();
+            }, 200);
+       }
+
     }
 }
 
 
 const updateFuel = () => {
-    fuelLeft-=1;
+    if(fuelReducer > 3){
+        fuelReducer-= 1;
+    } 
+    fuelLeft-=fuelReducer;
     fuelStatusElem.value = fuelLeft;
+    console.log(fuelReducer, fuelLeft);
+
+    if(fuelLeft < 1 && isPlaying) {
+        outtaFuelSound.play();
+        player.classList.remove('boosting');
+        displayBroadcastMsg(3);
+        isPlaying = false;
+    }
+    
 }
 
 const checkDuckCapture = () => {
@@ -343,8 +352,9 @@ const checkVictory = () => {
             } else {
                 displayBroadcastMsg(2);
             }
-
         }, 1500)
+
+        isPlaying = false;
     }
 }
 
@@ -354,7 +364,14 @@ const setEventListeners = () => {
     document.addEventListener('keyup', () => {
         player.classList.remove('boosting');
         engineSound.pause();
+
+        clearTimeout(fuelReducerTimer);
+        fuelReducerTimer = setTimeout(()=>{
+            fuelReducer = 11;
+        }, 500);
     })
+
+
     player.addEventListener('click', displayClickedObjectInformation);
     duckElement.addEventListener('click', displayClickedObjectInformation);
     exitElement.addEventListener('click', displayClickedObjectInformation);
