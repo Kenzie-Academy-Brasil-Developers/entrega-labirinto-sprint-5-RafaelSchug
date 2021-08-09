@@ -289,7 +289,7 @@ const movePlayer = (event) => {
 
             defaultHoverTimeout = setTimeout(()=>{
                 player.style.pointerEvents = 'initial';
-            }, 500);
+            }, 1100);
 
 
 
@@ -441,7 +441,7 @@ const startInitialMsgTransmission = () => {
     receiverContainer.style.display = 'flex';
 
     let messages = [
-        "Recebemos um sinal de socorro vindo de um cinturão de asteróides.",
+        "Recebemos um sinal de socorro vindo de um cinturão de asteroides.",
         " Não temos muitas informações sobre a origem do problema, apenas sabemos que o tripulante da nave era um pato, e que...",
         " Espere, um pato?",
         " Isso não me parece estar correto.",
